@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  name         String?
+  email        String        @unique
+  passwordHash String
+  createdAt    DateTime      @default(now())
+  generations  Generation[]
+}
+
+model Generation {
+  id           String      @id @default(uuid())
+  user         User        @relation(fields: [userId], references: [id])
+  userId       String
+  prompt       String
+  result       String?
+  model        AIModel
+  tone         Tone
+  template     Template
+  isSaved      Boolean      @default(false)
+  title        String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+enum AIModel {
+  GPT_4_TURBO
+  CLAUDE_3_5_SONNET
+  GEMINI_1_5_PRO
+  MISTRAL_MEDIUM
+}
+
+enum Template {
+  BLOG_POST
+  INSTAGRAM_CAPTION
+  PRODUCT_DESCRIPTION
+  EMAIL_PITCH
+}
+
+enum Tone {
+  FRIENDLY
+  PROFESSIONAL
+  PERSUASIVE
+  FUNNY
+  FORMAL
+}
