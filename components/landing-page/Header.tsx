@@ -38,7 +38,10 @@ export const Header = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Link href="/studio">
-              <Button variant="outline" className="border-primary hover:bg-muted">
+              <Button
+                variant="outline"
+                className="border-primary hover:bg-muted"
+              >
                 Launch Studio
               </Button>
             </Link>

@@ -134,7 +134,9 @@ export const HeroSection = () => {
               whileHover={{ scale: 1.1, y: -5 }}
               className="text-center"
             >
-              <div className="text-3xl font-bold text-primary">{stat.value}</div>
+              <div className="text-3xl font-bold text-primary">
+                {stat.value}
+              </div>
               <div className="text-sm text-muted-foreground mt-1">
                 {stat.label}
               </div>

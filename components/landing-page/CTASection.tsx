@@ -70,7 +70,11 @@ export const CTASection = () => {
                   >
                     <motion.div
                       animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "linear" as const }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear" as const,
+                      }}
                     >
                       <Sparkles className="w-5 h-5 mr-2" />
                     </motion.div>
