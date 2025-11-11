@@ -1,4 +1,7 @@
+"use client";
+
 import { Zap, Brain, FileText, Wand2, LucideIcon } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface Feature {
   icon: LucideIcon;
@@ -34,34 +37,74 @@ export const FeaturesSection = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
     <section className="container mx-auto px-6 py-20 border-t border-border/50">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
             Everything You Need to <span className="text-primary">Create</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Powerful features designed for creators, marketers, and writers
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid md:grid-cols-2 gap-6"
+        >
           {features.map((feature, index) => (
-            <div
+            <motion.div
               key={index}
-              className="group p-6 rounded-lg border border-border bg-card hover:bg-card-elevated transition-all duration-300 hover:border-primary hover:shadow-sm"
+              variants={itemVariants}
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+              className="group p-6 rounded-lg border border-border bg-card hover:bg-card-elevated transition-all duration-300 hover:border-primary hover:shadow-lg"
             >
-              <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <motion.div
+                whileHover={{ rotate: 360, scale: 1.2 }}
+                transition={{ duration: 0.6 }}
+                className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-4"
+              >
                 <feature.icon className="w-6 h-6 text-primary" />
-              </div>
+              </motion.div>
               <h3 className="text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground">{feature.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
