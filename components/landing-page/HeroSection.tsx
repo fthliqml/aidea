@@ -90,7 +90,7 @@ export const HeroSection = () => {
           variants={itemVariants}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
         >
-          <Link href="/studio">
+          <Link href="/auth/signin">
             <motion.div
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -100,7 +100,7 @@ export const HeroSection = () => {
                 className="h-14 px-8 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-sm text-lg"
               >
                 <Rocket className="w-5 h-5 mr-2" />
-                Start Creating
+                Get Started
               </Button>
             </motion.div>
           </Link>
@@ -118,6 +118,20 @@ export const HeroSection = () => {
               </Button>
             </a>
           </motion.div>
+        </motion.div>
+
+        {/* Guest Link */}
+        <motion.div variants={itemVariants} className="text-center">
+          <Link href="/studio">
+            <motion.span
+              whileHover={{ scale: 1.05 }}
+              className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer inline-flex items-center gap-2"
+            >
+              or{" "}
+              <span className="underline underline-offset-4">try as guest</span>
+              <span className="text-xs">→</span>
+            </motion.span>
+          </Link>
         </motion.div>
 
         {/* Stats */}

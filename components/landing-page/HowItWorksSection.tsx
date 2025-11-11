@@ -6,8 +6,9 @@ export const HowItWorksSection = () => {
   const steps = [
     {
       number: 1,
-      title: "Enter Your Idea",
-      description: "Type a brief description of what you want to create",
+      title: "Sign In or Try as Guest",
+      description:
+        "Create an account to save your work or start immediately as a guest",
     },
     {
       number: 2,

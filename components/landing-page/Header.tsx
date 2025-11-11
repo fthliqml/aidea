@@ -36,12 +36,15 @@ export const Header = () => {
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex items-center gap-3"
           >
+            <Link href="/auth/signin">
+              <Button variant="ghost" className="hover:bg-muted">
+                Sign In
+              </Button>
+            </Link>
             <Link href="/studio">
-              <Button
-                variant="outline"
-                className="border-primary hover:bg-muted"
-              >
+              <Button className="bg-primary hover:bg-primary/90">
                 Launch Studio
               </Button>
             </Link>
