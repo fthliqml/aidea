@@ -108,13 +108,15 @@ export const HeroSection = () => {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-14 px-8 border-border hover:bg-muted"
-            >
-              See How It Works
-            </Button>
+            <a href="#howItWorks">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14 px-8 border-border hover:bg-muted"
+              >
+                See How It Works
+              </Button>
+            </a>
           </motion.div>
         </motion.div>
 
