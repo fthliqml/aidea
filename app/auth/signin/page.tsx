@@ -5,6 +5,7 @@ import { Sparkles, Mail, Lock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const SignInPage = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -62,6 +63,16 @@ const SignInPage = () => {
           <span className="text-sm">Back to Home</span>
         </motion.div>
       </Link>
+
+      {/* Theme Toggle */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        className="absolute top-6 right-6"
+      >
+        <ThemeToggle />
+      </motion.div>
 
       <motion.div
         variants={containerVariants}

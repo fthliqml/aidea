@@ -4,6 +4,7 @@ import { FeaturesSection } from "@/components/landing-page/FeaturesSection";
 import { HowItWorksSection } from "@/components/landing-page/HowItWorksSection";
 import { CTASection } from "@/components/landing-page/CTASection";
 import { Footer } from "@/components/landing-page/Footer";
+import { FloatingThemeToggle } from "@/components/ui/floating-theme-toggle";
 
 const LandingPage = () => {
   return (
@@ -14,6 +15,7 @@ const LandingPage = () => {
       <HowItWorksSection />
       <CTASection />
       <Footer />
+      <FloatingThemeToggle />
     </div>
   );
 };
