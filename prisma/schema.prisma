@@ -8,27 +8,55 @@ datasource db {
 }
 
 model User {
-  id           String        @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String?
-  email        String        @unique
+  email        String   @unique
   passwordHash String
-  createdAt    DateTime      @default(now())
-  generations  Generation[]
+  createdAt    DateTime @default(now())
+
+  accounts    Account[]
+  sessions    Session[]
+  generations Generation[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  provider          String
+  providerAccountId String
+  access_token      String?
+  refresh_token     String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id])
 }
 
 model Generation {
-  id           String      @id @default(uuid())
-  user         User        @relation(fields: [userId], references: [id])
-  userId       String
-  prompt       String
-  result       String?
-  model        AIModel
-  tone         Tone
-  template     Template
-  isSaved      Boolean      @default(false)
-  title        String?
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  prompt    String
+  result    String?
+  model     AIModel
+  tone      Tone
+  template  Template
+  isSaved   Boolean  @default(false)
+  title     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum AIModel {
