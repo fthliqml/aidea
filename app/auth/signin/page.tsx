@@ -1,14 +1,31 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Sparkles, Mail, Lock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { Sparkles, Mail, Lock, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
+interface FormInput {
+  email: string;
+  password: string;
+}
+
 const SignInPage = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignUp, setIsSignUp] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInput>();
+
+  const onSubmit: SubmitHandler<FormInput> = (data) => {
+    console.log(data);
+  };
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -107,20 +124,31 @@ const SignInPage = () => {
           </div>
 
           {/* Form */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.form
+            variants={itemVariants}
+            className="space-y-4"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             {/* Email Input */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">
                 Email
               </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input
+              <div className="relative flex items-center">
+                <Mail className="absolute left-3 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Input
+                  {...register("email", { required: "Email is required" })}
                   type="email"
                   placeholder="your@email.com"
-                  className="w-full h-11 pl-10 pr-4 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  aria-invalid={!!errors.email}
+                  className="h-11 pl-10 w-full"
                 />
               </div>
+              {errors.email && (
+                <p className="text-xs text-destructive">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* Password Input */}
@@ -128,14 +156,27 @@ const SignInPage = () => {
               <label className="text-sm font-medium text-foreground">
                 Password
               </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input
+              <div className="relative flex items-center">
+                <Lock className="absolute left-3 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Input
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
                   type="password"
                   placeholder="••••••••"
-                  className="w-full h-11 pl-10 pr-4 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  aria-invalid={!!errors.password}
+                  className="h-11 pl-10 w-full"
                 />
               </div>
+              {errors.password && (
+                <p className="text-xs text-destructive">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             {/* Forgot Password */}
@@ -150,6 +191,7 @@ const SignInPage = () => {
             {/* Sign In Button */}
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
+                type="submit"
                 size="lg"
                 className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
               >
@@ -182,7 +224,7 @@ const SignInPage = () => {
                 </Button>
               </motion.div>
             </Link>
-          </motion.div>
+          </motion.form>
 
           {/* Toggle Sign In/Up */}
           <motion.div
